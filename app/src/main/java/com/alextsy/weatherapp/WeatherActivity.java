@@ -26,8 +26,8 @@ public class WeatherActivity extends AppCompatActivity implements LoaderCallback
 
     /** URL for earthquake data from the USGS dataset */
     private static final String USGS_REQUEST_URL =
-            "https://query.yahooapis.com/v1/public/yql?q=select%20item.condition%2C%20location.city%20from%20" +
-                    "weather.forecast%20where%20woeid%20in%20(2123260%2C%202111479%2C%202122265%2C%202122296%2C%202086230%2C%202112237%2C%202065482)" +
+            "https://query.yahooapis.com/v1/public/yql?q=select%20item.condition%2C%20location.city%2C%20item.description%20from%20weather.forecast%20where%20woeid%20in%20" +
+                    "(2123260%2C%202111479%2C%202120169%2C%202122265%2C%202122296%2C%202086230%2C%202112237%2C%202065482)" +
                     "&format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys";
 
     /**

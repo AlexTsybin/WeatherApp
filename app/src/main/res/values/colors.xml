@@ -28,7 +28,7 @@
     <color name="weather6">#1E90FF</color>
 
     <!-- Magnitude circle color for an earthquake with magnitude between 7 and 8 -->
-    <color name="weather7">#0000FF</color>
+    <color name="weather7">#4169E1</color>
 
     <!-- Text color for the details of the earthquake in the list item -->
     <color name="textColorEarthquakeDetails">#B4BAC0</color>
