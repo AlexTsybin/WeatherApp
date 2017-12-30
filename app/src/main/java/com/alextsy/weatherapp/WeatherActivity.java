@@ -27,8 +27,13 @@ public class WeatherActivity extends AppCompatActivity implements LoaderCallback
     /** URL for earthquake data from the USGS dataset */
     private static final String USGS_REQUEST_URL =
             "https://query.yahooapis.com/v1/public/yql?q=select%20item.condition%2C%20location.city%2C%20item.description%20from%20weather.forecast%20where%20woeid%20in%20" +
-                    "(2123260%2C%202111479%2C%202120169%2C%202122265%2C%202122296%2C%202086230%2C%202112237%2C%202065482)" +
+                    "(select%20woeid%20from%20geo.places(1)%20where%20text%20in%20(%22saint%20petersburg%22%2C%20%22yaroslavl%22%2C%20%22barnaul%22%2C%20%22moscow%22%2C%20%22murmansk%22" +
+                    "%2C%20%22sochi%22%2C%20%22yekaterinburg%22%2C%20%22petropavlovsk%20kamchatskiy%22))" +
                     "&format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys";
+
+//    "https://query.yahooapis.com/v1/public/yql?q=select%20item.condition%2C%20location.city%2C%20item.description%20from%20weather.forecast%20where%20woeid%20in%20" +
+//                    "(2123260%2C%202111479%2C%202120169%2C%202122265%2C%202122296%2C%202086230%2C%202112237%2C%202065482)" +
+//                            "&format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys";
 
     /**
      * Constant value for the weather loader ID. We can choose any integer.
