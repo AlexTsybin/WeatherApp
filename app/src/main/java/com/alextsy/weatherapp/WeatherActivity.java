@@ -5,31 +5,32 @@ import android.app.LoaderManager.LoaderCallbacks;
 import android.content.Context;
 import android.content.Intent;
 import android.content.Loader;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.net.Uri;
+import android.preference.PreferenceManager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
-public class WeatherActivity extends AppCompatActivity implements LoaderCallbacks<List<Weather>>,
+public class WeatherActivity extends AppCompatActivity implements LoaderCallbacks<List<Weather>>, SharedPreferences.OnSharedPreferenceChangeListener,
         SwipeRefreshLayout.OnRefreshListener {
 
     private static final String LOG_TAG = WeatherActivity.class.getName();
 
-    /** URL for earthquake data from the USGS dataset */
-    private static final String USGS_REQUEST_URL =
-            "https://query.yahooapis.com/v1/public/yql?q=select%20item.condition%2C%20location.city%2C%20item.description%20from%20weather.forecast%20where%20woeid%20in%20" +
-                    "(select%20woeid%20from%20geo.places(1)%20where%20text%20in%20(%22saint%20petersburg%22%2C%20%22yaroslavl%22%2C%20%22barnaul%22%2C%20%22moscow%22%2C%20%22murmansk%22" +
-                    "%2C%20%22sochi%22%2C%20%22yekaterinburg%22%2C%20%22petropavlovsk%20kamchatskiy%22))" +
-                    "&format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys";
+    /** URL for weather data from the Yahoo dataset */
+    private static final String BASE_URL =
+            "https://query.yahooapis.com/v1/public/yql?q=";
 
 //    "https://query.yahooapis.com/v1/public/yql?q=select%20item.condition%2C%20location.city%2C%20item.description%20from%20weather.forecast%20where%20woeid%20in%20" +
 //                    "(2123260%2C%202111479%2C%202120169%2C%202122265%2C%202122296%2C%202086230%2C%202112237%2C%202065482)" +
@@ -70,6 +71,12 @@ public class WeatherActivity extends AppCompatActivity implements LoaderCallback
         // so the list can be populated in the user interface
         weatherListView.setAdapter(mAdapter);
 
+        // Obtain a reference to the SharedPreferences file for this app
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        // And register to be notified of preference changes
+        // So we know when the user has adjusted the query settings
+        prefs.registerOnSharedPreferenceChangeListener(this);
+
         // Get a reference to the ConnectivityManager to check state of network connectivity
         ConnectivityManager connMgr = (ConnectivityManager)
                 getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -98,9 +105,46 @@ public class WeatherActivity extends AppCompatActivity implements LoaderCallback
     }
 
     @Override
+    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+        if (key.equals(getString(R.string.settings_min_magnitude_key))) {
+            mAdapter.clear();
+
+            mEmptyStateTextView.setVisibility(View.GONE);
+
+            View loadingIndicator = findViewById(R.id.loading_spinner);
+            loadingIndicator.setVisibility(View.VISIBLE);
+
+            getLoaderManager().restartLoader(WEATHER_LOADER_ID, null, this);
+        }
+    }
+
+    @Override
     public Loader<List<Weather>> onCreateLoader(int i, Bundle bundle) {
         // Create a new loader for the given URL
-        return new WeatherLoader(this, USGS_REQUEST_URL);
+
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        String cityName = sharedPreferences.getString(getString(R.string.settings_min_magnitude_key), getString(R.string.settings_min_city_default));
+
+        String queryStart = "select item.condition, location.city, item.description from weather.forecast where woeid in " +
+                "(select woeid from geo.places(1) where text in " +
+                "('saint petersburg', 'ярославль', 'barnaul', 'moscow', 'murmansk', 'sochi', 'yekaterinburg', 'petropavlovsk-kamchatskiy'";
+
+        String queryEnd = "))";
+
+        StringBuilder stringBuilder = null;
+        try {
+            stringBuilder = new StringBuilder(BASE_URL);
+            stringBuilder.append(URLEncoder.encode(queryStart, "UTF-8"));
+            stringBuilder.append(", \'");
+            stringBuilder.append(cityName);
+            stringBuilder.append("\'");
+            stringBuilder.append(URLEncoder.encode(queryEnd, "UTF-8"));
+            stringBuilder.append("&format=json");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+
+        return new WeatherLoader(this, stringBuilder.toString());
     }
 
     @Override
@@ -126,6 +170,23 @@ public class WeatherActivity extends AppCompatActivity implements LoaderCallback
     public void onLoaderReset(Loader<List<Weather>> loader) {
         // Loader reset, so we can clear out our existing data.
         mAdapter.clear();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.action_settings) {
+            Intent settingsIntent = new Intent(this, SettingsActivity.class);
+            startActivity(settingsIntent);
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override

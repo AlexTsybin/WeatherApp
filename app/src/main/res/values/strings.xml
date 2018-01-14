@@ -12,9 +12,9 @@
     <string name="settings_title">Weather Settings</string>
 
     <!-- Strings For Minimum Magnitude Preference [CHAR LIMIT=30] -->
-    <string name="settings_min_magnitude_label">Minimum Magnitude</string>
+    <string name="settings_min_city_label">City name</string>
     <string name="settings_min_magnitude_key" translatable="false">min_magnitude</string>
-    <string name="settings_min_magnitude_default" translatable="false">6</string>
+    <string name="settings_min_city_default" translatable="false">Kaluga</string>
 
     <!-- Strings For Order-By Preference [CHAR LIMIT=30] -->
     <string name="settings_order_by_label">Order By</string>
