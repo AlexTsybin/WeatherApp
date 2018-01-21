@@ -9,6 +9,9 @@
     <!-- Accent color of the app -->
     <color name="colorAccent">#10CAC9</color>
 
+    <!-- Accent color for UI controls like checkboxes and text fields -->
+    <color name="colorEditAccent">#F0514B</color>
+
     <!-- Color for an earthquake with magnitude 0 and 2 -->
     <color name="weather1">#FF0000</color>
 

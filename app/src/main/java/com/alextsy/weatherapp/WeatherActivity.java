@@ -1,32 +1,22 @@
 package com.alextsy.weatherapp;
 
-import android.app.AlertDialog;
 import android.app.LoaderManager;
 import android.app.LoaderManager.LoaderCallbacks;
-import android.content.ContentValues;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.Loader;
 import android.content.SharedPreferences;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.net.Uri;
 import android.preference.PreferenceManager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
-
-import com.alextsy.weatherapp.data.WeatherContract;
-import com.alextsy.weatherapp.data.WeatherContract.WeatherEntry;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
@@ -135,35 +125,6 @@ public class WeatherActivity extends AppCompatActivity implements LoaderCallback
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         String cityName = sharedPreferences.getString(getString(R.string.settings_min_magnitude_key), getString(R.string.settings_min_city_default));
 
-//        SQLiteDatabase myDB = openOrCreateDatabase("my.db", MODE_PRIVATE, null);
-//        myDB.execSQL(
-//                "CREATE TABLE IF NOT EXISTS user (name VARCHAR(200))"
-//        );
-//
-//        ContentValues row1 = new ContentValues();
-//        row1.put("name", "Kaluga");
-//        ContentValues row2 = new ContentValues();
-//        row2.put("name", "Astana");
-//
-//        myDB.insert("user", null, row1);
-//        myDB.insert("user", null, row2);
-//
-//        Cursor myCursor = myDB.rawQuery("select name from user", null);
-//
-//        String cityNameFromDb = "";
-//
-//
-//
-//        StringBuilder strB = new StringBuilder(queryStart);
-//
-//        while(myCursor.moveToNext()) {
-//            cityNameFromDb = myCursor.getString(0);
-//            strB.append(", '" + cityNameFromDb + "'");
-//        }
-//
-//        myCursor.close();
-//        myDB.close();
-
         String queryStart = "select item.condition, location.city, item.description from weather.forecast where woeid in " +
                 "(select woeid from geo.places(1) where text in " +
                 "('saint petersburg', 'ярославль', 'barnaul', 'moscow', 'murmansk', 'sochi', 'yekaterinburg', 'petropavlovsk-kamchatskiy'";
@@ -211,19 +172,6 @@ public class WeatherActivity extends AppCompatActivity implements LoaderCallback
         mAdapter.clear();
     }
 
-    private void insertCity() {
-
-        // Create a new map of values, where column names are the keys
-        ContentValues values = new ContentValues();
-        values.put(WeatherEntry.COLUMN_CITY_NAME, "Toto");
-
-        // Insert a new row for City into the provider using the ContentResolver.
-        // Use the {@link PetEntry#CONTENT_URI} to indicate that we want to insert
-        // into the cities database table.
-        // Receive the new content URI that will allow us to access City data in the future.
-        Uri newUri = getContentResolver().insert(WeatherEntry.CONTENT_URI, values);
-    }
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main, menu);
@@ -233,14 +181,10 @@ public class WeatherActivity extends AppCompatActivity implements LoaderCallback
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.action_insert_new_city:
+            case R.id.action_edit_list_of_cities:
                 //insertCity();
-                Intent settingsIntent = new Intent(this, SettingsActivity.class);
+                Intent settingsIntent = new Intent(this, CatalogActivity.class);
                 startActivity(settingsIntent);
-                return true;
-            case R.id.action_delete_all_cities:
-                // Pop up confirmation dialog for deletion
-                showDeleteConfirmationDialog();
                 return true;
         }
         return super.onOptionsItemSelected(item);
@@ -256,38 +200,5 @@ public class WeatherActivity extends AppCompatActivity implements LoaderCallback
 
         mSwipeRefreshLayout.setRefreshing(false);
 
-    }
-
-    private void showDeleteConfirmationDialog() {
-        // Create an AlertDialog.Builder and set the message, and click listeners
-        // for the postivie and negative buttons on the dialog.
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage(R.string.delete_all_dialog_msg);
-        builder.setPositiveButton(R.string.delete, new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int id) {
-                // User clicked the "Delete" button, so delete all pets.
-                deleteAllPets();
-            }
-        });
-        builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int id) {
-                // User clicked the "Cancel" button, so dismiss the dialog.
-                if (dialog != null) {
-                    dialog.dismiss();
-                }
-            }
-        });
-
-        // Create and show the AlertDialog
-        AlertDialog alertDialog = builder.create();
-        alertDialog.show();
-    }
-
-    /**
-     * Perform the deletion of the pet in the database.
-     */
-    private void deleteAllPets() {
-        int rowsDeleted = getContentResolver().delete(WeatherEntry.CONTENT_URI, null, null);
-        Log.v("CatalogActivity", rowsDeleted + " rows deleted from pet database");
     }
 }

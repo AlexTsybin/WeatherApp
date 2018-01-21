@@ -30,9 +30,24 @@
     <string name="settings_order_by_most_recent_value" translatable="false">time</string>
     <string name="refresh_started">Обновление</string>
     <string name="refresh_finished">Обновление завершено</string>
-    <string name="action_insert_new_city">Insert New City</string>
+    <string name="action_edit_list_of_cities">Edit List of Cities</string>
+    <string name="editor_activity_title_edit_city">Edit City</string>
     <string name="action_delete_all_entries">Delete All Cities</string>
     <string name="delete_all_dialog_msg">Delete all cities?</string>
     <string name="delete">Delete</string>
     <string name="cancel">Cancel</string>
+    <string name="category_overview">City name</string>
+    <string name="hint_city_name">Name</string>
+    <string name="editor_insert_city_failed">Error with saving city</string>
+    <string name="editor_insert_city_successful">City added</string>
+    <string name="editor_update_city_failed">Error with updating city</string>
+    <string name="editor_update_city_successful">City updated</string>
+    <string name="action_save">Save</string>
+    <string name="action_delete">Delete</string>
+    <string name="delete_dialog_msg">Delete this city?</string>
+    <string name="unsaved_changes_dialog_msg">Discard your changes and quit editing?</string>
+    <string name="discard">Discard</string>
+    <string name="keep_editing">Keep Editing</string>
+    <string name="editor_delete_city_failed">Error with deleting city</string>
+    <string name="editor_delete_city_successful">City deleted</string>
 </resources>

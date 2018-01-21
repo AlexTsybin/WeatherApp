@@ -5,12 +5,7 @@
     tools:context=".CatalogActivity">
 
     <item
-        android:id="@+id/action_insert_new_city"
-        android:title="@string/action_insert_new_city"
-        app:showAsAction="never" />
-
-    <item
-        android:id="@+id/action_delete_all_cities"
-        android:title="@string/action_delete_all_entries"
+        android:id="@+id/action_edit_list_of_cities"
+        android:title="@string/action_edit_list_of_cities"
         app:showAsAction="never" />
 </menu>
