@@ -30,4 +30,9 @@
     <string name="settings_order_by_most_recent_value" translatable="false">time</string>
     <string name="refresh_started">Обновление</string>
     <string name="refresh_finished">Обновление завершено</string>
+    <string name="action_insert_new_city">Insert New City</string>
+    <string name="action_delete_all_entries">Delete All Cities</string>
+    <string name="delete_all_dialog_msg">Delete all cities?</string>
+    <string name="delete">Delete</string>
+    <string name="cancel">Cancel</string>
 </resources>
