@@ -35,7 +35,7 @@ public final class QueryUtils {
     }
 
     /**
-     * Query the USGS dataset and return a list of {@link Weather} objects.
+     * Query the Yahoo dataset and return a list of {@link Weather} objects.
      */
     public static List<Weather> fetchWeatherData(String requestUrl) {
 
@@ -157,11 +157,19 @@ public final class QueryUtils {
 
             JSONObject queryObject = baseJsonResponse.getJSONObject("query");
             JSONObject resultsObject = queryObject.getJSONObject("results");
-            JSONArray channelArray = resultsObject.getJSONArray("channel");
-            for (int i = 0; i < channelArray.length(); i++) {
 
-                JSONObject currentWeather = channelArray.getJSONObject(i);
-                JSONObject itemObject = currentWeather.getJSONObject("item");
+            Object channel;
+            JSONObject channelObject;
+            JSONArray channelArray;
+
+            channel = resultsObject.get("channel");
+
+            // Todo: Выбор между объектом и массивом надо переделать
+
+            if (channel instanceof JSONObject) {
+                channelObject = resultsObject.getJSONObject("channel");
+
+                JSONObject itemObject = channelObject.getJSONObject("item");
                 JSONObject conditionObject = itemObject.getJSONObject("condition");
 
                 int temperatureF = conditionObject.getInt("temp");
@@ -169,7 +177,7 @@ public final class QueryUtils {
                 String date = conditionObject.getString("date");
                 int code = conditionObject.getInt("code");
 
-                JSONObject locationObject = currentWeather.getJSONObject("location");
+                JSONObject locationObject = channelObject.getJSONObject("location");
 
                 String name = locationObject.getString("city");
 
@@ -179,7 +187,31 @@ public final class QueryUtils {
 
                 // Add the new {@link Weather} to the list of weathers.
                 weathers.add(weather);
+            } else {
+                channelArray = resultsObject.getJSONArray("channel");
+                for (int i = 0; i < channelArray.length(); i++) {
 
+                    JSONObject currentWeather = channelArray.getJSONObject(i);
+                    JSONObject itemObject = currentWeather.getJSONObject("item");
+                    JSONObject conditionObject = itemObject.getJSONObject("condition");
+
+                    int temperatureF = conditionObject.getInt("temp");
+                    String descr = conditionObject.getString("text");
+                    String date = conditionObject.getString("date");
+                    int code = conditionObject.getInt("code");
+
+                    JSONObject locationObject = currentWeather.getJSONObject("location");
+
+                    String name = locationObject.getString("city");
+
+                    // Create a new {@link Weather} object with the temperatureF, descr, date,
+                    // and name from the JSON response.
+                    Weather weather = new Weather(temperatureF, descr, date, name, code);
+
+                    // Add the new {@link Weather} to the list of weathers.
+                    weathers.add(weather);
+
+                }
             }
 
         } catch (JSONException e) {

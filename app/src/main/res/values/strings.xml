@@ -9,7 +9,7 @@
     <!-- Settings Menu Item [CHAR LIMIT=NONE] -->
     <string name="settings_menu_item">Settings</string>
     <!-- Settings Activity Title [CHAR LIMIT=NONE] -->
-    <string name="settings_title">Weather Settings</string>
+    <string name="catalog_title">City Catalog</string>
 
     <!-- Strings For Minimum Magnitude Preference [CHAR LIMIT=30] -->
     <string name="settings_min_city_label">City name</string>
@@ -30,7 +30,7 @@
     <string name="settings_order_by_most_recent_value" translatable="false">time</string>
     <string name="refresh_started">Обновление</string>
     <string name="refresh_finished">Обновление завершено</string>
-    <string name="action_edit_list_of_cities">Edit List of Cities</string>
+    <string name="action_edit_list_of_cities">City Catalog</string>
     <string name="editor_activity_title_edit_city">Edit City</string>
     <string name="action_delete_all_entries">Delete All Cities</string>
     <string name="delete_all_dialog_msg">Delete all cities?</string>
@@ -50,4 +50,7 @@
     <string name="keep_editing">Keep Editing</string>
     <string name="editor_delete_city_failed">Error with deleting city</string>
     <string name="editor_delete_city_successful">City deleted</string>
+    <string name="action_insert_new_city">Add a City</string>
+    <string name="action_add_city">Add New City</string>
+    <string name="action_add">Add new City</string>
 </resources>

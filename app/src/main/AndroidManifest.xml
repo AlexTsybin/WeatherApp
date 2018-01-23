@@ -11,19 +11,33 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".WeatherActivity">
+        <activity
+            android:name=".WeatherActivity"
+            android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
-            android:name=".SettingsActivity"
-            android:label="@string/settings_title">
+            android:name=".CatalogActivity"
+            android:label="@string/catalog_title"
+            android:parentActivityName=".WeatherActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.alextsy.weatherapp.WeatherActivity"/>
+                android:value=".WeatherActivity"/>
         </activity>
+        <activity
+            android:name=".EditorActivity"
+            android:parentActivityName=".CatalogActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".CatalogActivity"/>
+        </activity>
+        <provider
+            android:name=".data.WeatherProvider"
+            android:authorities="com.alextsy.weatherapp"
+            android:exported="false"/>
     </application>
 
 </manifest>

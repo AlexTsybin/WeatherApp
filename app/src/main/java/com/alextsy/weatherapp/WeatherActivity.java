@@ -5,10 +5,10 @@ import android.app.LoaderManager.LoaderCallbacks;
 import android.content.Context;
 import android.content.Intent;
 import android.content.Loader;
-import android.content.SharedPreferences;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.preference.PreferenceManager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -18,23 +18,23 @@ import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.alextsy.weatherapp.data.WeatherDbHelper;
+import com.alextsy.weatherapp.data.WeatherContract.WeatherEntry;
+
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
-public class WeatherActivity extends AppCompatActivity implements LoaderCallbacks<List<Weather>>, SharedPreferences.OnSharedPreferenceChangeListener,
+public class WeatherActivity extends AppCompatActivity implements LoaderCallbacks<List<Weather>>,
         SwipeRefreshLayout.OnRefreshListener {
-
     private static final String LOG_TAG = WeatherActivity.class.getName();
+
+    WeatherDbHelper mDbHelper = new WeatherDbHelper(this);
 
     /** URL for weather data from the Yahoo dataset */
     private static final String BASE_URL =
             "https://query.yahooapis.com/v1/public/yql?q=";
-
-//    "https://query.yahooapis.com/v1/public/yql?q=select%20item.condition%2C%20location.city%2C%20item.description%20from%20weather.forecast%20where%20woeid%20in%20" +
-//                    "(2123260%2C%202111479%2C%202120169%2C%202122265%2C%202122296%2C%202086230%2C%202112237%2C%202065482)" +
-//                            "&format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys";
 
     /**
      * Constant value for the weather loader ID. We can choose any integer.
@@ -71,12 +71,6 @@ public class WeatherActivity extends AppCompatActivity implements LoaderCallback
         // so the list can be populated in the user interface
         weatherListView.setAdapter(mAdapter);
 
-        // Obtain a reference to the SharedPreferences file for this app
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-        // And register to be notified of preference changes
-        // So we know when the user has adjusted the query settings
-        prefs.registerOnSharedPreferenceChangeListener(this);
-
         // Get a reference to the ConnectivityManager to check state of network connectivity
         ConnectivityManager connMgr = (ConnectivityManager)
                 getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -105,29 +99,32 @@ public class WeatherActivity extends AppCompatActivity implements LoaderCallback
     }
 
     @Override
-    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-        if (key.equals(getString(R.string.settings_min_magnitude_key))) {
-            mAdapter.clear();
-
-            mEmptyStateTextView.setVisibility(View.GONE);
-
-            View loadingIndicator = findViewById(R.id.loading_spinner);
-            loadingIndicator.setVisibility(View.VISIBLE);
-
-            getLoaderManager().restartLoader(WEATHER_LOADER_ID, null, this);
-        }
-    }
-
-    @Override
     public Loader<List<Weather>> onCreateLoader(int i, Bundle bundle) {
         // Create a new loader for the given URL
-
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-        String cityName = sharedPreferences.getString(getString(R.string.settings_min_magnitude_key), getString(R.string.settings_min_city_default));
-
         String queryStart = "select item.condition, location.city, item.description from weather.forecast where woeid in " +
-                "(select woeid from geo.places(1) where text in " +
-                "('saint petersburg', 'ярославль', 'barnaul', 'moscow', 'murmansk', 'sochi', 'yekaterinburg', 'petropavlovsk-kamchatskiy'";
+                "(select woeid from geo.places(1) where text in (";
+
+        String newCityName;
+        StringBuilder endOfLine = new StringBuilder();
+
+        {
+            SQLiteDatabase db = mDbHelper.getReadableDatabase();
+
+            String[] projection = {
+                    WeatherEntry._ID,
+                    WeatherEntry.COLUMN_CITY_NAME };
+
+            Cursor cursor = db.query(WeatherEntry.TABLE_NAME,
+                    projection, null, null, null, null, null);
+
+            while (cursor.moveToNext()) {
+                newCityName = cursor.getString(
+                        cursor.getColumnIndexOrThrow(WeatherEntry.COLUMN_CITY_NAME));
+                endOfLine.append("%2C+%27" + newCityName + "%27");
+            }
+
+            cursor.close();
+        }
 
         String queryEnd = "))";
 
@@ -135,9 +132,8 @@ public class WeatherActivity extends AppCompatActivity implements LoaderCallback
         try {
             stringBuilder = new StringBuilder(BASE_URL);
             stringBuilder.append(URLEncoder.encode(queryStart, "UTF-8"));
-            stringBuilder.append(", \'");
-            stringBuilder.append(cityName);
-            stringBuilder.append("\'");
+            endOfLine.delete(0, 4);
+            stringBuilder.append(endOfLine.toString());
             stringBuilder.append(URLEncoder.encode(queryEnd, "UTF-8"));
             stringBuilder.append("&format=json");
         } catch (UnsupportedEncodingException e) {
@@ -181,10 +177,9 @@ public class WeatherActivity extends AppCompatActivity implements LoaderCallback
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.action_edit_list_of_cities:
-                //insertCity();
-                Intent settingsIntent = new Intent(this, CatalogActivity.class);
-                startActivity(settingsIntent);
+            case R.id.action_add_city:
+                Intent intent = new Intent(WeatherActivity.this, CatalogActivity.class);
+                startActivity(intent);
                 return true;
         }
         return super.onOptionsItemSelected(item);
