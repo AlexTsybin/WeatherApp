@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Options menu for the CatalogActivity -->
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".CatalogActivity">
+
+    <item
+        android:id="@+id/action_add"
+        android:title="@string/action_add"
+        android:icon="@drawable/ic_add"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/action_add_city"
+        android:title="@string/action_add_city"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_delete_all_cities"
+        android:title="@string/action_delete_all_entries"
+        app:showAsAction="never" />
+</menu>
