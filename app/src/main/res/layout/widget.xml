@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:id="@+id/widget"
+    android:orientation="horizontal"
+    android:alpha="0.90"
+    android:background="@android:color/white">
+
+    <TextView
+        android:id="@+id/widget_temperature"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_gravity="center_vertical"
+        android:background="@drawable/magnitude_circle"
+        android:fontFamily="sans-serif-medium"
+        android:gravity="center"
+        android:textColor="@android:color/black"
+        android:textSize="16sp"
+        tools:text="- 2" />
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginStart="4dp"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/widget_city_name"
+            android:layout_width="54dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textColor="@color/textColorEarthquakeLocation"
+            android:textSize="14sp"
+            tools:text="Saint Petersburg" />
+
+        <TextView
+            android:id="@+id/widget_description"
+            android:layout_width="54dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textColor="@color/textColorEarthquakeDetails"
+            android:textSize="12sp"
+            tools:text="Breezy" />
+
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/widget_mini_icon"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_gravity="center_vertical"
+        android:layout_marginStart="4dp"
+        android:src="@drawable/term"/>
+
+</LinearLayout>
