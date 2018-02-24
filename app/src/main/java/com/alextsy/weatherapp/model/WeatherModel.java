@@ -1,0 +1,106 @@
+package com.alextsy.weatherapp.model;
+
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
+/**
+ * Created by os_mac on 13.02.18.
+ */
+
+public class WeatherModel {
+
+    public Query getQuery() {
+        return query;
+    }
+
+    @SerializedName("query")
+    @Expose
+    public Query query;
+
+    public class Query {
+
+        public Results getResults() {
+            return results;
+        }
+
+        @SerializedName("results")
+        @Expose
+        private Results results;
+
+    }
+
+    public class Results {
+
+        public Channel getChannel() {
+            return channel;
+        }
+
+        @SerializedName("channel")
+        @Expose
+        private Channel channel;
+
+    }
+
+    public class Channel {
+
+        public Location getLocation() {
+            return location;
+        }
+
+        public Item getItem() {
+            return item;
+        }
+
+        @SerializedName("location")
+        @Expose
+        private Location location;
+        @SerializedName("item")
+        @Expose
+        private Item item;
+
+    }
+
+    public class Location {
+
+        public String getCity() {
+            return city;
+        }
+
+        @SerializedName("city")
+        @Expose
+        private String city;
+
+    }
+
+    public class Item {
+
+        public Condition getCondition() {
+            return condition;
+        }
+
+        @SerializedName("condition")
+        @Expose
+        private Condition condition;
+
+    }
+
+    public class Condition {
+
+        public String getTemp() {
+            return temp;
+        }
+
+        public String getText() {
+            return text;
+        }
+
+        @SerializedName("temp")
+        @Expose
+        private String temp;
+        @SerializedName("text")
+        @Expose
+        private String text;
+
+    }
+
+}

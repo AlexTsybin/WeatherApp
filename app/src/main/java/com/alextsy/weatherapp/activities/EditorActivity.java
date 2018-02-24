@@ -1,4 +1,4 @@
-package com.alextsy.weatherapp;
+package com.alextsy.weatherapp.activities;
 
 import android.app.AlertDialog;
 import android.app.LoaderManager;
@@ -20,6 +20,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.alextsy.weatherapp.R;
 import com.alextsy.weatherapp.data.WeatherContract.WeatherEntry;
 
 /**

@@ -1,9 +1,8 @@
-package com.alextsy.weatherapp;
+package com.alextsy.weatherapp.activities;
 
 import android.app.AlertDialog;
 import android.app.LoaderManager;
 import android.content.ContentUris;
-import android.content.ContentValues;
 import android.content.CursorLoader;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -19,6 +18,8 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.alextsy.weatherapp.CityCursorAdapter;
+import com.alextsy.weatherapp.R;
 import com.alextsy.weatherapp.data.WeatherContract.WeatherEntry;
 
 /**
@@ -54,9 +55,9 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
                 // Create new intent to go to EditorActivity
                 Intent intent = new Intent(CatalogActivity.this, EditorActivity.class);
 
-                Uri currentPetUri = ContentUris.withAppendedId(WeatherEntry.CONTENT_URI, id);
+                Uri currentCityUri = ContentUris.withAppendedId(WeatherEntry.CONTENT_URI, id);
 
-                intent.setData(currentPetUri);
+                intent.setData(currentCityUri);
 
                 startActivity(intent);
 

@@ -4,6 +4,9 @@ import android.content.AsyncTaskLoader;
 import android.content.Context;
 import android.util.Log;
 
+import com.alextsy.weatherapp.model.Weather;
+import com.alextsy.weatherapp.utils.QueryUtils;
+
 import java.util.List;
 
 /**

@@ -1,7 +1,6 @@
 package com.alextsy.weatherapp;
 
 import android.content.Context;
-import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
@@ -10,6 +9,8 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.alextsy.weatherapp.model.Weather;
 
 import java.util.List;
 
@@ -55,10 +56,10 @@ public class WeatherAdapter extends ArrayAdapter<Weather> {
         String temp = String.valueOf(tempC);
 
         if (tempC > 0) {
-            temp = "+ " + tempC;
+            temp = "+" + tempC;
         }
 
-        tempView.setText(temp);
+        tempView.setText(temp + "\u00b0");
 
         // Set the proper background color on the magnitude circle.
         // Fetch the background from the TextView, which is a GradientDrawable.

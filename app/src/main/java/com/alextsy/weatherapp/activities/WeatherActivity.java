@@ -1,4 +1,4 @@
-package com.alextsy.weatherapp;
+package com.alextsy.weatherapp.activities;
 
 import android.app.LoaderManager;
 import android.app.LoaderManager.LoaderCallbacks;
@@ -9,17 +9,23 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.alextsy.weatherapp.R;
+import com.alextsy.weatherapp.WeatherAdapter;
+import com.alextsy.weatherapp.WeatherLoader;
 import com.alextsy.weatherapp.data.WeatherDbHelper;
 import com.alextsy.weatherapp.data.WeatherContract.WeatherEntry;
+import com.alextsy.weatherapp.model.Weather;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
@@ -28,6 +34,7 @@ import java.util.List;
 
 public class WeatherActivity extends AppCompatActivity implements LoaderCallbacks<List<Weather>>,
         SwipeRefreshLayout.OnRefreshListener {
+
     private static final String LOG_TAG = WeatherActivity.class.getName();
 
     WeatherDbHelper mDbHelper = new WeatherDbHelper(this);
@@ -70,6 +77,33 @@ public class WeatherActivity extends AppCompatActivity implements LoaderCallback
         // Set the adapter on the {@link ListView}
         // so the list can be populated in the user interface
         weatherListView.setAdapter(mAdapter);
+
+        /*
+         *
+         * Попытка реализовать просмотр прогноза на неделю по нажатию на город
+         *
+         */
+
+        weatherListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                // Find the current weather that was clicked on
+                Weather currentWeather = (Weather) mAdapter.getItem(position);
+
+                // Create a new intent to go to WeatherForecast
+                Intent forecastIntent = new Intent(WeatherActivity.this, WeatherForecast.class);
+
+                // Convert the String URL into a URI object (to pass into the Intent constructor)
+                Uri currentWeatherUri = Uri.parse(currentWeather.getCity());
+
+                forecastIntent.putExtra("cityForecast", currentWeatherUri.toString());
+
+                // Send the intent to launch a new activity
+                startActivity(forecastIntent);
+            }
+        });
+
 
         // Get a reference to the ConnectivityManager to check state of network connectivity
         ConnectivityManager connMgr = (ConnectivityManager)
