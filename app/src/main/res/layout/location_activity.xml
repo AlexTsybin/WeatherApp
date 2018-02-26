@@ -97,7 +97,7 @@
     </LinearLayout>
 
     <Button
-        android:id="@+id/get_lat_long"
+        android:id="@+id/get_current_city"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Get Current Location"/>

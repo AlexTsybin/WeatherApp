@@ -37,7 +37,7 @@ public class LocationActivity extends AppCompatActivity {
     private TextView curr_lat;
     private TextView curr_long;
     private TextView curr_city;
-    private Button get_lat_long;
+    private Button get_curr_city;
     private FusedLocationProviderClient mFusedLocationClient;
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,11 +50,11 @@ public class LocationActivity extends AppCompatActivity {
         curr_lat = findViewById(R.id.current_lat);
         curr_long = findViewById(R.id.current_long);
         curr_city = findViewById(R.id.current_geo_city);
-        get_lat_long = findViewById(R.id.get_lat_long);
+        get_curr_city = findViewById(R.id.get_current_city);
 
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
 
-        get_lat_long.setOnClickListener(new View.OnClickListener() {
+        get_curr_city.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 displayLocation();
