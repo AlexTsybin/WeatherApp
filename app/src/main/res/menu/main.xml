@@ -5,6 +5,12 @@
     tools:context=".activities.CatalogActivity">
 
     <item
+        android:id="@+id/action_geo"
+        android:title="@string/action_geo"
+        android:icon="@drawable/ic_my_location"
+        app:showAsAction="always" />
+
+    <item
         android:id="@+id/action_add_city"
         android:title="@string/action_edit_list_of_cities"
         app:showAsAction="never" />

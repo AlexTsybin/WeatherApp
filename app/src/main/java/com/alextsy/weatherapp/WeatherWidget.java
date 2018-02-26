@@ -3,6 +3,8 @@ package com.alextsy.weatherapp;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
 import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
@@ -29,12 +31,15 @@ public class WeatherWidget extends AppWidgetProvider {
     @Override
     public void onUpdate(final Context context, final AppWidgetManager appWidgetManager, final int[] appWidgetIds) {
 
-        SQLiteDatabase db = new WeatherDbHelper(context).getReadableDatabase();
-        Cursor cursor = db.query(WeatherEntry.TABLE_NAME, new String[] {WeatherEntry.COLUMN_CITY_NAME}, null, null, null, null, null);
-        cursor.moveToFirst();
-        String city = cursor.getString(cursor.getColumnIndexOrThrow(WeatherEntry.COLUMN_CITY_NAME));
+//        SQLiteDatabase db = new WeatherDbHelper(context).getReadableDatabase();
+//        Cursor cursor = db.query(WeatherEntry.TABLE_NAME, new String[] {WeatherEntry.COLUMN_CITY_NAME}, null, null, null, null, null);
+//        cursor.moveToFirst();
+//        String city = cursor.getString(cursor.getColumnIndexOrThrow(WeatherEntry.COLUMN_CITY_NAME));
 
-        String q = "select item.condition, location.city from weather.forecast where woeid in (select woeid from geo.places(1) where text = \"" + city + "\") and u = \"c\"";
+        SharedPreferences sharedPref = context.getSharedPreferences(String.valueOf(R.string.preference_file_key), Context.MODE_PRIVATE);
+        String pref_city = sharedPref.getString(String.valueOf(R.string.saved_city), "");
+
+        String q = "select item.condition, location.city from weather.forecast where woeid in (select woeid from geo.places(1) where text = \"" + pref_city + "\") and u = \"c\"";
         String format = "json";
 
         weatherService = ServiceGenerator.createService();

@@ -212,8 +212,13 @@ public class WeatherActivity extends AppCompatActivity implements LoaderCallback
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_add_city:
-                Intent intent = new Intent(WeatherActivity.this, CatalogActivity.class);
-                startActivity(intent);
+                Intent intent_catalog = new Intent(WeatherActivity.this, CatalogActivity.class);
+                startActivity(intent_catalog);
+                return true;
+
+            case R.id.action_geo:
+                Intent intent_geo = new Intent(WeatherActivity.this, LocationActivity.class);
+                startActivity(intent_geo);
                 return true;
         }
         return super.onOptionsItemSelected(item);

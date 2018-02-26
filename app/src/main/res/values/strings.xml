@@ -11,6 +11,10 @@
     <!-- Settings Activity Title [CHAR LIMIT=NONE] -->
     <string name="catalog_title">City Catalog</string>
 
+    <string name="location_title">Current Location</string>
+
+    <string name="forecast_title">City Forecast</string>
+
     <!-- Strings For Minimum Magnitude Preference [CHAR LIMIT=30] -->
     <string name="settings_min_city_label">City name</string>
     <string name="settings_min_magnitude_key" translatable="false">min_magnitude</string>
@@ -53,4 +57,10 @@
     <string name="action_insert_new_city">Add a City</string>
     <string name="action_add_city">Add New City</string>
     <string name="action_add">Add new City</string>
+    <string name="action_geo">My Location</string>
+    <string name="lbl_you_are_at">YOU ARE AT</string>
+    <string name="preference_file_key">location file</string>
+    <string name="saved_latitude">Saved latitude</string>
+    <string name="saved_longtitude">Saved longtitude</string>
+    <string name="saved_city">Saved city</string>
 </resources>
