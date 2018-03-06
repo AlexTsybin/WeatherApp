@@ -1,7 +1,5 @@
 package com.alextsy.weatherapp.activities;
 
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
@@ -16,6 +14,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.alextsy.weatherapp.R;
+import com.alextsy.weatherapp.utils.LocationPref;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -32,20 +31,19 @@ import java.util.Locale;
 
 public class LocationActivity extends AppCompatActivity {
 
-    private SharedPreferences sharedPref;
-
     private TextView curr_lat;
     private TextView curr_long;
     private TextView curr_city;
     private Button get_curr_city;
     private FusedLocationProviderClient mFusedLocationClient;
 
+    LocationPref sharedPref;
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.location_activity);
 
-        sharedPref = getSharedPreferences(
-                String.valueOf(R.string.preference_file_key), Context.MODE_PRIVATE);
+        sharedPref = new LocationPref(this);
 
         curr_lat = findViewById(R.id.current_lat);
         curr_long = findViewById(R.id.current_long);
@@ -87,9 +85,7 @@ public class LocationActivity extends AppCompatActivity {
 
                             curr_city.setText(city);
 
-                            SharedPreferences.Editor editor = sharedPref.edit();
-                            editor.putString(String.valueOf(R.string.saved_city), city);
-                            editor.apply();
+                            sharedPref.setData(city);
                         }
                     }
                 });

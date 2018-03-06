@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp">
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="220dp"
+        android:layout_height="75dp"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="0dp"
+        tools:text="Petropavlovsk-Kamchatskiy" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:layout_editor_absoluteX="91dp"
+        tools:layout_editor_absoluteY="103dp"
+        tools:text="Russia" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="126dp"
+        android:layout_height="74dp"
+        android:layout_marginStart="8dp"
+        app:layout_constraintStart_toEndOf="@+id/textView"
+        tools:layout_editor_absoluteY="0dp"
+        tools:text="-36" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:layout_editor_absoluteX="193dp"
+        tools:layout_editor_absoluteY="91dp"
+        tools:text="Scattered Showers" />
+
+    <ListView
+        android:layout_width="390dp"
+        android:layout_height="349dp"
+        tools:layout_editor_absoluteY="162dp" />
+</android.support.constraint.ConstraintLayout>

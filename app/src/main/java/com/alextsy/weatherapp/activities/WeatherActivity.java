@@ -62,7 +62,7 @@ public class WeatherActivity extends AppCompatActivity implements LoaderCallback
         super.onCreate(savedInstanceState);
         setContentView(R.layout.weather_activity);
 
-        mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.refresh);
+        mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.weather_swipe);
         mSwipeRefreshLayout.setOnRefreshListener(this);
 
         // Find a reference to the {@link ListView} in the layout

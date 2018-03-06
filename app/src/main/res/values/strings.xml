@@ -63,4 +63,6 @@
     <string name="saved_latitude">Saved latitude</string>
     <string name="saved_longtitude">Saved longtitude</string>
     <string name="saved_city">Saved city</string>
+    <string name="string_getting_json_title">Wait</string>
+    <string name="string_getting_json_message">Getting data</string>
 </resources>

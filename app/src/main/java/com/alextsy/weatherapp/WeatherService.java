@@ -9,6 +9,6 @@ import retrofit2.http.Query;
 public interface WeatherService {
 
     @GET("/v1/public/yql")
-    Call<WeatherModel> getData(@Query("q") String question, @Query("format") String format);
+    Call<WeatherModel> getMyJSON(@Query("q") String question, @Query("format") String format);
 
 }

@@ -1,17 +1,19 @@
 package com.alextsy.weatherapp;
 
+import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
 import android.content.Context;
-import android.content.SharedPreferences;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
+import android.content.Intent;
 import android.util.Log;
 import android.widget.RemoteViews;
 
-import com.alextsy.weatherapp.data.WeatherContract.WeatherEntry;
-import com.alextsy.weatherapp.data.WeatherDbHelper;
+import com.alextsy.weatherapp.activities.WeatherActivity;
+import com.alextsy.weatherapp.model.Forecast;
 import com.alextsy.weatherapp.model.WeatherModel;
+import com.alextsy.weatherapp.utils.LocationPref;
+
+import java.util.ArrayList;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -35,29 +37,39 @@ public class WeatherWidget extends AppWidgetProvider {
 //        cursor.moveToFirst();
 //        String city = cursor.getString(cursor.getColumnIndexOrThrow(WeatherEntry.COLUMN_CITY_NAME));
 
-        SharedPreferences sharedPref = context.getSharedPreferences(String.valueOf(R.string.preference_file_key), Context.MODE_PRIVATE);
-        String pref_city = sharedPref.getString(String.valueOf(R.string.saved_city), "");
+        LocationPref sharedPref = new LocationPref(context);
+
+        String pref_city = sharedPref.getData();
 
         String q = "select item.condition, location.city from weather.forecast where woeid in (select woeid from geo.places(1) where text = \"" + pref_city + "\") and u = \"c\"";
         String format = "json";
 
         weatherService = ServiceGenerator.createService();
 
-//        Intent intent = new Intent(context, WeatherActivity.class);
-//        PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, 0);
-//        // Get the layout for the App Widget and attach an on-click listener to the button
-//        final RemoteViews view = new RemoteViews(context.getPackageName(), R.layout.widget);
-//        view.setOnClickPendingIntent(R.xml.widget_provider_info, pendingIntent);
+        /*
+         * Start activity by clicking on widget
+         */
+        Intent intent = new Intent(context, WeatherActivity.class);
+        PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, 0);
+        RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.widget);
+        views.setOnClickPendingIntent(R.id.widget, pendingIntent);
+        appWidgetManager.updateAppWidget(appWidgetIds, views);
 
-        weatherService.getData(q, format).enqueue(new Callback<WeatherModel>() {
+        weatherService.getMyJSON(q, format).enqueue(new Callback<WeatherModel>() {
             @Override
             public void onResponse(Call<WeatherModel> call, Response<WeatherModel> response) {
 
                 RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.widget);
 
-                views.setTextViewText(R.id.widget_temperature, response.body().getQuery().getResults().getChannel().getItem().getCondition().getTemp() + "\u00b0");
-                views.setTextViewText(R.id.widget_city_name, response.body().getQuery().getResults().getChannel().getLocation().getCity());
-                views.setTextViewText(R.id.widget_description, response.body().getQuery().getResults().getChannel().getItem().getCondition().getText());
+                if (response.body().getQuery() == null) {
+                    views.setTextViewText(R.id.widget_temperature, "n/a" + "\u00b0");
+                    views.setTextViewText(R.id.widget_city_name, "n/a");
+                    views.setTextViewText(R.id.widget_description, "n/a");
+                } else {
+                    views.setTextViewText(R.id.widget_temperature, response.body().getQuery().getResults().getChannel().getItem().getCondition().getTemp() + "\u00b0");
+                    views.setTextViewText(R.id.widget_city_name, response.body().getQuery().getResults().getChannel().getLocation().getCity());
+                    views.setTextViewText(R.id.widget_description, response.body().getQuery().getResults().getChannel().getItem().getCondition().getText());
+                }
 
                 appWidgetManager.updateAppWidget(appWidgetIds, views);
             }

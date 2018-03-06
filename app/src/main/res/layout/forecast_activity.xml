@@ -2,45 +2,51 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/parent_forecast_layout"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:padding="16dp">
 
     <TextView
         android:id="@+id/forecast_city_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="32sp"
+        android:layout_width="230dp"
+        android:layout_height="74dp"
+        android:textSize="28sp"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="20dp"
+        android:gravity="center_vertical"
+        android:ellipsize="end"
+        android:maxLines="2"
         android:text=""
-        tools:text="St. Petersburg"/>
+        tools:text="Petropavlovsk-Kamchatskiy"/>
 
     <TextView
         android:id="@+id/forecast_country"
-        android:layout_width="wrap_content"
+        android:layout_width="230dp"
         android:layout_height="wrap_content"
-        android:textSize="18sp"
+        android:textSize="20sp"
         android:text=""
         tools:text="Russia"
         android:layout_below="@+id/forecast_city_name"/>
 
     <TextView
         android:id="@+id/forecast_temp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="70sp"
+        android:layout_width="120dp"
+        android:layout_height="74dp"
+        android:textSize="55sp"
         android:fontFamily="sans-serif-light"
+        android:gravity="center"
         android:layout_alignParentEnd="true"
         android:text=""
-        tools:text="-19°"/>
+        tools:text="-6°"/>
 
     <TextView
         android:id="@+id/forecast_descr"
-        android:layout_width="wrap_content"
+        android:layout_width="120dp"
         android:layout_height="wrap_content"
         android:text=""
         tools:text="Clear"
+        android:gravity="center_horizontal"
         android:layout_below="@+id/forecast_temp"
         android:layout_alignStart="@+id/forecast_temp"
         android:textSize="20sp"/>
@@ -50,7 +56,9 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/forecast_descr"
+        android:layout_below="@+id/forecast_country"
+        android:layout_marginTop="12dp"
+        android:paddingTop="12dp"
         android:divider="@null"
         android:dividerHeight="0dp"/>
 

@@ -3,6 +3,8 @@ package com.alextsy.weatherapp.model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.ArrayList;
+
 /**
  * Created by os_mac on 13.02.18.
  */
@@ -66,21 +68,56 @@ public class WeatherModel {
             return city;
         }
 
+        public String getCountry() {
+            return country;
+        }
+
+        @SerializedName("country")
+        @Expose
+        private String country;
+
         @SerializedName("city")
         @Expose
         private String city;
 
     }
 
+    public class Astronomy {
+
+        public String getSunrise() {
+            return sunrise;
+        }
+
+        public String getSunset() {
+            return sunset;
+        }
+
+        @SerializedName("sunrise")
+        @Expose
+        private String sunrise;
+        @SerializedName("sunset")
+        @Expose
+        private String sunset;
+
+    }
+
     public class Item {
+
+        @SerializedName("condition")
+        @Expose
+        private Condition condition;
+
+        @SerializedName("forecast")
+        @Expose
+        private ArrayList<Forecast> forecast = new ArrayList<>();
 
         public Condition getCondition() {
             return condition;
         }
 
-        @SerializedName("condition")
-        @Expose
-        private Condition condition;
+        public ArrayList<Forecast> getForecast() {
+            return forecast;
+        }
 
     }
 

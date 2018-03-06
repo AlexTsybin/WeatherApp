@@ -19,7 +19,7 @@
         android:layout_marginTop="25dp"
         android:layout_marginBottom="15dp"
         android:text="@string/lbl_you_are_at"
-        android:textSize="25dp"
+        android:textSize="25sp"
         android:textStyle="bold" />
 
     <LinearLayout
@@ -34,7 +34,7 @@
             android:layout_height="wrap_content"
             android:paddingStart="4dp"
             android:text="Latitude:"
-            android:textSize="16dp"/>
+            android:textSize="16sp"/>
 
         <TextView
             android:id="@+id/current_lat"
@@ -42,7 +42,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             tools:text="59.9431705"
-            android:textSize="16dp"/>
+            android:textSize="16sp"/>
 
     </LinearLayout>
 
@@ -58,7 +58,7 @@
             android:layout_height="wrap_content"
             android:paddingStart="4dp"
             android:text="Longtitude:"
-            android:textSize="16dp"/>
+            android:textSize="16sp"/>
 
         <TextView
             android:id="@+id/current_long"
@@ -66,7 +66,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             tools:text="30.3454007"
-            android:textSize="16dp"/>
+            android:textSize="16sp"/>
 
     </LinearLayout>
 
@@ -82,7 +82,7 @@
             android:layout_height="wrap_content"
             android:paddingStart="4dp"
             android:text="City:"
-            android:textSize="16dp"/>
+            android:textSize="16sp"/>
 
         <TextView
             android:id="@+id/current_geo_city"
@@ -92,7 +92,7 @@
             tools:text="St. Petersburg"
             android:ellipsize="marquee"
             android:singleLine="true"
-            android:textSize="16dp"/>
+            android:textSize="16sp"/>
 
     </LinearLayout>
 

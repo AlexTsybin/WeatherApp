@@ -133,7 +133,7 @@ public class WeatherAdapter extends ArrayAdapter<Weather> {
      * @param code
      * @return icon resource id
      */
-    private int getIcon(int code) {
+    public static int getIcon(int code) {
         int iconResourceId = R.drawable.term;
 
         switch (code) {
