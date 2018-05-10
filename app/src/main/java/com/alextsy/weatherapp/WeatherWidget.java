@@ -39,9 +39,9 @@ public class WeatherWidget extends AppWidgetProvider {
 
         LocationPref sharedPref = new LocationPref(context);
 
-        String pref_city = sharedPref.getData();
+        String pref_lat_lng = sharedPref.getData();
 
-        String q = "select item.condition, location.city from weather.forecast where woeid in (select woeid from geo.places(1) where text = \"" + pref_city + "\") and u = \"c\"";
+        String q = "select item.condition, location.city from weather.forecast where woeid in (select woeid from geo.places(1) where text = \"" + pref_lat_lng + "\") and u = \"c\"";
         String format = "json";
 
         weatherService = ServiceGenerator.createService();

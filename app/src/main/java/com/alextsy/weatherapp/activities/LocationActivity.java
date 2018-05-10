@@ -77,15 +77,16 @@ public class LocationActivity extends AppCompatActivity {
                         if (location != null) {
                             // Logic to handle location object
                             double latD = location.getLatitude();
-                            double longD = location.getLongitude();
+                            double lngD = location.getLongitude();
                             curr_lat.setText(String.valueOf(latD));
-                            curr_long.setText(String.valueOf(longD));
+                            curr_long.setText(String.valueOf(lngD));
 
-                            String city = getCityFromLocation(latD, longD);
+                            String city = getCityFromLocation(latD, lngD);
+                            String lat_lng = "(" + String.valueOf(latD) + "," + String.valueOf(lngD) + ")";
 
                             curr_city.setText(city);
 
-                            sharedPref.setData(city);
+                            sharedPref.setData(lat_lng);
                         }
                     }
                 });
