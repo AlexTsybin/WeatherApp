@@ -49,6 +49,8 @@ public class WeatherForecast extends AppCompatActivity {
         }
         setContentView(R.layout.forecast_activity);
 
+        Log.i(LOG_TAG, "onCreate");
+
         /**
          * Progress Dialog for User Interaction
          */
@@ -71,13 +73,14 @@ public class WeatherForecast extends AppCompatActivity {
         String q = "select * from weather.forecast where woeid in (select woeid from geo.places(1) where text = \"" + forecastCity + "\") and u = \"c\"";
         String format = "json";
 
+        // Dismiss dialog
+        dialog.dismiss();
+
         WeatherService api = ServiceGenerator.createService();
 
         api.getMyJSON(q, format).enqueue(new Callback<WeatherModel>() {
             @Override
             public void onResponse(Call<WeatherModel> call, Response<WeatherModel> response) {
-                // Dismiss dialog
-                dialog.dismiss();
 
                 fcCity.setText(response.body().getQuery().getResults().getChannel().getLocation().getCity());
                 fcCountry.setText(response.body().getQuery().getResults().getChannel().getLocation().getCountry());
@@ -95,6 +98,17 @@ public class WeatherForecast extends AppCompatActivity {
             }
         });
 
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putString("city", forecastCity);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
     }
 
     @Override

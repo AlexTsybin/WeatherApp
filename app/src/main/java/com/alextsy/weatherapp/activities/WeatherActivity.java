@@ -235,4 +235,9 @@ public class WeatherActivity extends AppCompatActivity implements LoaderCallback
         mSwipeRefreshLayout.setRefreshing(false);
 
     }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+    }
 }
