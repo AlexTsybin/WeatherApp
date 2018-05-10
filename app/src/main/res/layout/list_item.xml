@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="?android:attr/listPreferredItemHeight"
@@ -36,7 +37,7 @@
             android:layout_gravity="center_vertical"
             android:ellipsize="end"
             android:maxLines="1"
-            android:textColor="@color/textColorEarthquakeLocation"
+            android:textColor="@color/textColorWeatherText"
             android:textSize="16sp"
             tools:text="Saint Petersburg" />
 
@@ -47,7 +48,7 @@
             android:layout_gravity="center_vertical"
             android:ellipsize="end"
             android:maxLines="1"
-            android:textColor="@color/textColorEarthquakeDetails"
+            android:textColor="@color/textColorWeatherBackground"
             android:textSize="14sp"
             tools:text="Breezy" />
 
@@ -73,7 +74,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end"
-            android:textColor="@color/textColorEarthquakeDetails"
+            android:textColor="@color/textColorWeatherBackground"
             android:textSize="12sp"
             tools:text="Mar 6, 2010" />
 
@@ -82,7 +83,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end"
-            android:textColor="@color/textColorEarthquakeDetails"
+            android:textColor="@color/textColorWeatherBackground"
             android:textSize="12sp"
             tools:text="3:00 PM" />
 

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="?android:attr/listPreferredItemHeight">
+
+    <TextView
+        android:id="@+id/forecast_wd"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_gravity="center_vertical"
+        android:textSize="16sp"
+        android:text=""
+        tools:text="Wed"/>
+
+    <TextView
+        android:id="@+id/forecast_wd_date"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="2"
+        android:layout_gravity="center_vertical"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:text=""
+        tools:text="24 Feb 2018"/>
+
+    <!--<TextView-->
+        <!--android:id="@+id/forecast_wd_descr"-->
+        <!--android:layout_width="0dp"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_weight="2"-->
+        <!--android:layout_gravity="center_vertical"-->
+        <!--android:textSize="16sp"-->
+        <!--android:text=""-->
+        <!--tools:text="Scattered Showers"/>-->
+
+    <ImageView
+        android:id="@+id/forecast_wd_icon"
+        android:layout_width="0dp"
+        android:layout_height="24dp"
+        android:layout_weight="1"
+        android:layout_gravity="center_vertical"
+        android:gravity="center_horizontal"
+        android:src="@drawable/term"/>
+
+    <TextView
+        android:id="@+id/forecast_wd_high"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_gravity="center_vertical"
+        android:gravity="center_horizontal"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        tools:text="-11°"/>
+
+    <TextView
+        android:id="@+id/forecast_wd_low"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_gravity="center_vertical"
+        android:textSize="16sp"
+        android:gravity="center_horizontal"
+        android:textStyle="bold"
+        tools:text="-15°"
+        android:textColor="#a5d6ff"/>
+
+</LinearLayout>
+

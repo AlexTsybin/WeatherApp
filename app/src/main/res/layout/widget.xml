@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:id="@+id/widget"
+    android:alpha="90"
+    android:background="@drawable/widget_bckgrnd">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_centerInParent="true"
+        android:id="@+id/linearLayout">
+
+        <TextView
+            android:id="@+id/widget_temperature"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center_vertical"
+            android:gravity="center"
+            android:textColor="@color/textColorWeatherText"
+            android:textSize="20sp"
+            tools:text="- 25" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="4dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/widget_city_name"
+                android:layout_width="82dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:textColor="@color/textColorWeatherText"
+                android:textSize="14sp"
+                tools:text="Saint Petersburg" />
+
+            <TextView
+                android:id="@+id/widget_description"
+                android:layout_width="82dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:textColor="@color/textColorWeatherText"
+                android:textSize="12sp"
+                tools:text="Breezy" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/weather_swipe"
+        android:layout_width="13dp"
+        android:layout_height="35dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="14dp"
+        android:paddingBottom="10dp"
+        android:src="@drawable/yahoo_grey" />
+
+</RelativeLayout>

@@ -1,7 +1,9 @@
-package com.alextsy.weatherapp;
+package com.alextsy.weatherapp.utils;
 
 import android.text.TextUtils;
 import android.util.Log;
+
+import com.alextsy.weatherapp.model.Weather;
 
 import org.json.JSONArray;
 import org.json.JSONException;

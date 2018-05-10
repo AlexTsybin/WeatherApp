@@ -1,6 +1,5 @@
-package com.alextsy.weatherapp;
+package com.alextsy.weatherapp.model;
 
-import android.support.annotation.NonNull;
 
 /**
  * Created by os_mac on 11.12.17.
