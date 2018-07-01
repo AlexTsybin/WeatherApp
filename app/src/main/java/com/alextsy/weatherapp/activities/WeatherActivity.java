@@ -160,7 +160,7 @@ public class WeatherActivity extends AppCompatActivity implements LoaderCallback
             cursor.close();
         }
 
-        String queryEnd = "))";
+        String queryEnd = ")) and u = \"c\"";
 
         StringBuilder stringBuilder = null;
         try {

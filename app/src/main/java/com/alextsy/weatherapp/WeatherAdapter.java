@@ -51,7 +51,8 @@ public class WeatherAdapter extends ArrayAdapter<Weather> {
         TextView tempView = (TextView) listItemView.findViewById(R.id.temperature);
         // Display the temperature of the current weather in that TextView
 
-        int tempC = (int) ((currentWeather.getTemp() - 32) / 1.8);
+//        int tempC = (int) ((currentWeather.getTemp() - 32) / 1.8);
+        int tempC = currentWeather.getTemp();
 
         String temp = String.valueOf(tempC);
 
